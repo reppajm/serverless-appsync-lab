@@ -12,6 +12,7 @@ This lab will immerse students about the components of [AWS AppSync](https://aws
 _serverless.yml_ is a cloudformation-like template that compiles to vanilla cloudformation. It has some powerful transforms working with popular AWS serverless services like Lambda, API Gateway and DynamoDB. It and can also be extended via their rich [plugins ecosystem.](https://www.serverless.com/plugins)
 
 **1a. Cloning and installing project dependencies**
+
 Clone the project by issuing the command:
 
     git clone git@github.com:reppajm/serverless-appsync-lab.git
@@ -25,7 +26,12 @@ Install npm packages:
     npm install
 
 **1b. Working with Lambda Functions**
-In the serverless.yml file, there is a section called **functions** as seen in the screenshot. Notice the **_addTwoNumber-fn_** with a handler pointing to our code in the file system at **src/handlers/\*\*\***
+
+In the serverless.yml file, there is a section called **functions** as seen in the screenshot.
+
+![Functions Section](assets/functions.png)
+
+Notice the **_addTwoNumber-fn_** with a handler pointing to our code in the file system at **src/handlers/\*\*\***
 
 Invoke the functiob by issuing the command:
 
