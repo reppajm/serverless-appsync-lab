@@ -5,10 +5,73 @@ provider:
   runtime: nodejs14.x
   region: ap-southeast-1
   lambdaHashingVersion: 20201221
-
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "s3:ListBucket"
+            - "dynamodb:PutItem"
+            - "dynamodb:UpdateItem"
+            - "dynamodb:DeleteItem"
+            - "dynamodb:GetItem"
+            - "dynamodb:Query"
+            - "dynamodb:Scan"
+          Resource: "*"
 plugins:
+  - serverless-dynamodb-local
   - serverless-offline
+  - serverless-appsync-simulator
+  - serverless-appsync-plugin
 
 functions:
   addTwoNumbers-fn:
     handler: src/handlers/addTwoNumbers/index.handler
+
+custom:
+  dynamodb:
+    # If you only want to use DynamoDB Local in some stages, declare them here
+    stages:
+      - dev
+    start:
+      port: 8000
+      heapInitial: 200m
+      heapMax: 1g
+      migrate: true
+      seed: true
+      convertEmptyValues: true
+      # Uncomment only if you already have a DynamoDB running locally
+      noStart: true
+  appSync:
+    name: ServerlessAppSyncImmersion
+    schema: schema.graphql
+    authenticationType: AMAZON_COGNITO_USER_POOLS
+    userPoolConfig:
+      defaultAction: ALLOW
+      userPoolId: !Ref CognitoUserPool
+    mappingTemplatesLocation: src/mapping-templates
+
+    mappingTemplates:
+      - dataSource: DynamoDBColorTableDS
+        type: Query
+        field: colors
+        request: Query.colors.request.vtl
+        response: Query.colors.response.vtl
+      - dataSource: DynamoDBColorTableDS
+        type: Mutation
+        field: addColor
+        request: Mutation.addColor.request.vtl
+        response: Mutation.addColor.response.vtl
+
+    dataSources:
+      - type: AWS_LAMBDA
+        name: LambdaAddTwoNumbersDS
+        config:
+          functionName: addTwoNumbers-fn
+      - type: AMAZON_DYNAMODB
+        name: DynamoDBColorTableDS
+        config:
+          tableName: !Ref ColorTable
+
+resources: # CloudFormation template syntax
+  - ${file(./resources.yml)}

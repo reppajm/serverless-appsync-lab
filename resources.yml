@@ -1,0 +1,18 @@
+Resources:
+  CognitoUserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      UserPoolName: ${self:service.name}-user-pool
+      AutoVerifiedAttributes:
+        - email
+  ColorTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ColorTable
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST

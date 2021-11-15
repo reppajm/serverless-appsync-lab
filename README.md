@@ -33,7 +33,7 @@ In the serverless.yml file, there is a section called **functions** as seen in t
 
 Notice the **_addTwoNumber-fn_** with a handler pointing to our code in the file system at **src/handlers/\*\*\***
 
-Invoke the functiob by issuing the command:
+Invoke the function by issuing the command:
 
     npx sls invoke local --function addTwoNumbers-fn --path src/handlers/addTwoNumbers/event.json
 
