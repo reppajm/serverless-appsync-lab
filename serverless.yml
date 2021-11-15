@@ -1,0 +1,14 @@
+service: severless-appsync-lab
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: ap-southeast-1
+  lambdaHashingVersion: 20201221
+
+plugins:
+  - serverless-offline
+
+functions:
+  addTwoNumbers-fn:
+    handler: src/handlers/addTwoNumbers/index.handler

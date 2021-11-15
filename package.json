@@ -1,0 +1,25 @@
+{
+  "name": "serverless-appsync-lab",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reppajm/serverless-appsync-lab.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reppajm/serverless-appsync-lab/issues"
+  },
+  "homepage": "https://github.com/reppajm/serverless-appsync-lab#readme",
+  "devDependencies": {
+    "serverless": "^2.66.1"
+  },
+  "dependencies": {
+    "serverless-offline": "^8.2.0"
+  }
+}
